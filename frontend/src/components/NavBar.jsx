@@ -1,17 +1,52 @@
-const NavBar = () => {
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import './Navbar.css';
+
+const Navbar = () => {
+    const location = useLocation();
+
+    const navItems = [
+        { path: '/', label: 'Home' },
+        { path: '/register', label: 'Register' },
+        { path: '/search', label: 'Search' },
+        { path: '/matching', label: 'Matching' },
+        { path: '/stories', label: 'Stories' },
+        { path: '/contact', label: 'Contact' }
+    ];
+
     return (
-      <nav className="bg-gray-900 text-white">
-        <div className="container mx-auto flex items-center justify-between px-4 py-3">
-          <div className="text-2xl font-bold">MySite</div>
-          <ul className="flex space-x-6">
-            <li><a href="/" className="hover:text-blue-400">Home</a></li>
-            <li><a href="/match" className="hover:text-blue-400">Match</a></li>
-            <li><a href="/profile" className="hover:text-blue-400">My Profile</a></li>
-          </ul>
-        </div>
-      </nav>
+        <nav className="navbar">
+            <div className="navbar-container">
+                <div className="navbar-brand">
+                    <Link to="/" className="brand-link">
+                        Marriage Matching
+                    </Link>
+                </div>
+                
+                <div className="navbar-links">
+                    {navItems.map((item) => (
+                        <Link
+                            key={item.path}
+                            to={item.path}
+                            className={`nav-link ${location.pathname === item.path ? 'active' : ''}`}
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
+                </div>
+
+                <div className="navbar-auth">
+                    <Link to="/login" className="auth-link login">
+                        Login
+                    </Link>
+                    <Link to="/register" className="auth-link register">
+                        Sign Up
+                    </Link>
+                </div>
+            </div>
+        </nav>
     );
-  };
-  
-  export default NavBar;
+};
+
+export default Navbar;
   
